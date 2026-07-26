@@ -1,0 +1,76 @@
+{
+  "culture": "en",
+  "texts": {
+    "AppName": "Movies",
+
+    "Menu:Home": "Home",
+    "Menu:Movies": "Movies",
+    "Menu:Directors": "Directors",
+    "Menu:Customers": "Customers",
+    "Menu:Rentals": "Rentals",
+
+    "Movie": "Movie",
+    "Movies": "Movies",
+    "MovieTitle": "Movie Title",
+    "Genre": "Genre",
+    "Price": "Price",
+    "Director": "Director",
+
+    "Director": "Director",
+    "Directors": "Directors",
+    "Name": "Name",
+    "Nationality": "Nationality",
+
+    "Customer": "Customer",
+    "Customers": "Customers",
+    "FullName": "Full Name",
+    "Email": "Email",
+    "PhoneNumber": "Phone Number",
+
+    "Rental": "Rental",
+    "Rentals": "Rentals",
+    "RentalDate": "Rental Date",
+    "DueDate": "Due Date",
+    "ReturnDate": "Return Date",
+    "Returned": "Returned",
+    "Status": "Status",
+
+    "Save": "Save",
+    "Cancel": "Cancel",
+    "Create": "Create",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Close": "Close",
+    "Actions": "Actions",
+
+    "NewMovie": "New Movie",
+    "NewDirector": "New Director",
+    "NewCustomer": "New Customer",
+    "NewRental": "New Rental",
+    "ReturnMovie": "Return Movie",
+
+    "SelectMovie": "Select Movie",
+    "SelectCustomer": "Select Customer",
+    "SelectDirector": "Select Director",
+
+    "MovieCreated": "Movie created successfully.",
+    "MovieUpdated": "Movie updated successfully.",
+    "MovieDeleted": "Movie deleted successfully.",
+
+    "CustomerCreated": "Customer created successfully.",
+    "DirectorCreated": "Director created successfully.",
+    "RentalCreated": "Rental created successfully.",
+    "MovieReturned": "Movie returned successfully.",
+
+    "MovieTitleRequired": "Movie title is required.",
+    "CustomerRequired": "Customer is required.",
+    "MovieRequired": "Movie is required.",
+    "PriceMustBePositive": "Price must be greater than zero.",
+    "DueDateCannotBePast": "Due date cannot be in the past.",
+    "MovieAlreadyRented": "This movie is already rented.",
+    "CustomerRentalLimit": "Customer has reached the maximum number of rentals.",
+    "TheMovieIsAlreadyRented!": "Movie Is Already Rented",
+    "Movies:RentalAlreadyReturned": "This movie has already been returned."
+
+  }
+}

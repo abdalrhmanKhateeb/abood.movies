@@ -1,0 +1,145 @@
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between mb-3">
+
+        <h2>Directors</h2>
+
+        <button
+            class="btn btn-primary"
+            (click)="openCreateModal()">
+
+            New Director
+
+        </button>
+
+    </div>
+
+    <table class="table table-bordered table-hover">
+
+        <thead>
+
+            <tr>
+
+                <th>Name</th>
+
+                <th>Nationality</th>
+
+                <th width="180">Actions</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let director of directors">
+
+                <td>{{director.name}}</td>
+
+                <td>{{director.nationality}}</td>
+
+                <td>
+
+                    <button
+                        class="btn btn-warning btn-sm me-2"
+                        (click)="editDirector(director)">
+
+                        Edit
+
+                    </button>
+
+                    <button
+                        class="btn btn-danger btn-sm"
+                        (click)="deleteDirector(director.id)">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<div
+    class="modal fade show"
+    [style.display]="isModalOpen ? 'block' : 'none'"
+    *ngIf="isModalOpen">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5>
+
+                    {{selectedDirector ? 'Edit Director' : 'New Director'}}
+
+                </h5>
+
+                <button
+                    class="btn-close"
+                    (click)="isModalOpen=false">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form [formGroup]="form">
+
+                    <div class="mb-3">
+
+                        <label>Name</label>
+
+                        <input
+                            class="form-control"
+                            formControlName="name">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Nationality</label>
+
+                        <input
+                            class="form-control"
+                            formControlName="nationality">
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    (click)="isModalOpen=false">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    (click)="save()">
+
+                    Save
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

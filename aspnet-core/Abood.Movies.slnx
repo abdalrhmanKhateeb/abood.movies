@@ -1,0 +1,35 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Abood.Movies.Application.Contracts/Abood.Movies.Application.Contracts.csproj" />
+    <Project Path="src/Abood.Movies.Application/Abood.Movies.Application.csproj" />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <Project Path="src/Abood.Movies.DbMigrator/Abood.Movies.DbMigrator.csproj" />
+    <Project Path="src/Abood.Movies.Domain.Shared/Abood.Movies.Domain.Shared.csproj" />
+    <Project Path="src/Abood.Movies.Domain/Abood.Movies.Domain.csproj" />
+    <Project Path="src/Abood.Movies.EntityFrameworkCore/Abood.Movies.EntityFrameworkCore.csproj" />
+    <Project Path="src/Abood.Movies.HttpApi.Client/Abood.Movies.HttpApi.Client.csproj" />
+    
+    <Project Path="src/Abood.Movies.HttpApi.Host/Abood.Movies.HttpApi.Host.csproj" />
+    <Project Path="src/Abood.Movies.HttpApi/Abood.Movies.HttpApi.csproj" />
+    
+    
+    
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Abood.Movies.Application.Tests/Abood.Movies.Application.Tests.csproj" />
+    <Project Path="test/Abood.Movies.Domain.Tests/Abood.Movies.Domain.Tests.csproj" />
+    <Project Path="test/Abood.Movies.EntityFrameworkCore.Tests/Abood.Movies.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="test/Abood.Movies.HttpApi.Client.ConsoleTestApp/Abood.Movies.HttpApi.Client.ConsoleTestApp.csproj" />
+    
+    <Project Path="test/Abood.Movies.TestBase/Abood.Movies.TestBase.csproj" />
+    
+  </Folder>
+</Solution>

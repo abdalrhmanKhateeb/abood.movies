@@ -1,0 +1,75 @@
+{
+  "culture": "ar",
+  "texts": {
+    "AppName": "تأجير الأفلام",
+
+    "Menu:Home": "الرئيسية",
+    "Menu:Movies": "الأفلام",
+    "Menu:Directors": "المخرجون",
+    "Menu:Customers": "العملاء",
+    "Menu:Rentals": "الإعارات",
+
+    "Movie": "فيلم",
+    "Movies": "الأفلام",
+    "MovieTitle": "عنوان الفيلم",
+    "Genre": "النوع",
+    "Price": "السعر",
+    "Director": "المخرج",
+
+    "Director": "المخرج",
+    "Directors": "المخرجون",
+    "Name": "الاسم",
+    "Nationality": "الجنسية",
+
+    "Customer": "العميل",
+    "Customers": "العملاء",
+    "FullName": "الاسم الكامل",
+    "Email": "البريد الإلكتروني",
+    "PhoneNumber": "رقم الهاتف",
+
+    "Rental": "إعارة",
+    "Rentals": "الإعارات",
+    "RentalDate": "تاريخ الإعارة",
+    "DueDate": "تاريخ الاستحقاق",
+    "ReturnDate": "تاريخ الإرجاع",
+    "Returned": "تم الإرجاع",
+    "Status": "الحالة",
+
+    "Save": "حفظ",
+    "Cancel": "إلغاء",
+    "Create": "إنشاء",
+    "Edit": "تعديل",
+    "Delete": "حذف",
+    "Close": "إغلاق",
+    "Actions": "الإجراءات",
+
+    "NewMovie": "فيلم جديد",
+    "NewDirector": "مخرج جديد",
+    "NewCustomer": "عميل جديد",
+    "NewRental": "إعارة جديدة",
+    "ReturnMovie": "إرجاع الفيلم",
+
+    "SelectMovie": "اختر فيلمًا",
+    "SelectCustomer": "اختر عميلًا",
+    "SelectDirector": "اختر مخرجًا",
+
+    "MovieCreated": "تم إنشاء الفيلم بنجاح.",
+    "MovieUpdated": "تم تحديث الفيلم بنجاح.",
+    "MovieDeleted": "تم حذف الفيلم بنجاح.",
+
+    "CustomerCreated": "تم إنشاء العميل بنجاح.",
+    "DirectorCreated": "تم إنشاء المخرج بنجاح.",
+    "RentalCreated": "تم إنشاء الإعارة بنجاح.",
+    "MovieReturned": "تم إرجاع الفيلم بنجاح.",
+
+    "MovieTitleRequired": "عنوان الفيلم مطلوب.",
+    "CustomerRequired": "العميل مطلوب.",
+    "MovieRequired": "الفيلم مطلوب.",
+    "PriceMustBePositive": "يجب أن يكون السعر أكبر من صفر.",
+    "DueDateCannotBePast": "لا يمكن أن يكون تاريخ الاستحقاق في الماضي.",
+    "MovieAlreadyRented": "هذا الفيلم مُعار بالفعل.",
+    "CustomerRentalLimit": "وصل العميل إلى الحد الأقصى لعدد الإعارات.",
+    "TheMovieIsAlreadyRented": "الفيلم سبق و تم حجزه",
+    "Movies:RentalAlreadyReturned": "الفلم مسبقا تم ارجاعه."
+  }
+}

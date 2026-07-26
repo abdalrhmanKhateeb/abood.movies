@@ -1,0 +1,206 @@
+<div class="container mt-4">
+
+  <div class="d-flex justify-content-between mb-3">
+
+    <h2>Rentals</h2>
+
+    <button
+      class="btn btn-primary"
+      (click)="openCreateModal()">
+
+      New Rental
+
+    </button>
+
+  </div>
+
+  <table class="table table-bordered table-hover">
+
+    <thead>
+
+      <tr>
+
+        <th>Customer</th>
+        <th>Movie</th>
+        <th>Rental Date</th>
+        <th>Due Date</th>
+        <th>Status</th>
+        <th width="220">Actions</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let rental of rentals">
+
+        <td>{{ rental.customerName }}</td>
+
+        <td>{{ rental.movieTitle }}</td>
+
+        <td>{{ rental.rentalDate | date:'shortDate' }}</td>
+
+        <td>{{ rental.dueDate | date:'shortDate' }}</td>
+
+        <td>
+
+          <span
+            class="badge bg-success"
+            *ngIf="!rental.isReturned">
+
+            Active
+
+          </span>
+
+          <span
+            class="badge bg-secondary"
+            *ngIf="rental.isReturned">
+
+            Returned
+
+          </span>
+
+        </td>
+
+        <td>
+
+          <button
+            class="btn btn-success btn-sm me-2"
+            *ngIf="!rental.isReturned"
+            (click)="returnMovie(rental.id)">
+
+            Return
+
+          </button>
+
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="deleteRental(rental.id)">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+<div
+  class="modal fade show"
+  [style.display]="isModalOpen ? 'block' : 'none'"
+  *ngIf="isModalOpen">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5>
+
+          New Rental
+
+        </h5>
+
+        <button
+          class="btn-close"
+          (click)="isModalOpen = false">
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <form [formGroup]="form">
+
+          <div class="mb-3">
+
+            <label>Customer</label>
+
+            <select
+              class="form-select"
+              formControlName="customerId">
+
+              <option value="">Select Customer</option>
+
+              <option
+                *ngFor="let customer of customers"
+                [value]="customer.id">
+
+                {{ customer.fullName }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+          <div class="mb-3">
+
+            <label>Movie</label>
+
+            <select
+              class="form-select"
+              formControlName="movieId">
+
+              <option value="">Select Movie</option>
+
+              <option
+                *ngFor="let movie of movies"
+                [value]="movie.id">
+
+                {{ movie.title }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+          <div class="mb-3">
+
+            <label>Due Date</label>
+
+            <input
+              type="date"
+              class="form-control"
+              formControlName="dueDate">
+
+          </div>
+
+        </form>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button
+          class="btn btn-secondary"
+          (click)="isModalOpen = false">
+
+          Cancel
+
+        </button>
+
+        <button
+          class="btn btn-primary"
+          (click)="save()">
+
+          Save
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
