@@ -7,6 +7,7 @@ namespace Abood.Movies.Movies
 {
     public class MovieDto : AuditedEntityDto<Guid>
     {
+        //
         public string Title { get; set; }
 
         public MovieType Genre { get; set; }
