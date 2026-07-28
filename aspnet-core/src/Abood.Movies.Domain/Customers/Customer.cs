@@ -16,7 +16,7 @@ namespace Abood.Movies.Customers
         protected Customer()
         {
         }
-
+        
 
         public Customer(
             Guid id,
@@ -62,6 +62,9 @@ namespace Abood.Movies.Customers
 
             return this;
         }
+        
     }
+
+    
 }
 
