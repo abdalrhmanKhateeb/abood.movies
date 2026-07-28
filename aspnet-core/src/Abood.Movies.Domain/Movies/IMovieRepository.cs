@@ -9,4 +9,5 @@ namespace Abood.Movies.Movies;
 public interface IMovieRepository : IRepository<Movie, Guid>
 {
     Task<Movie?> GetWithDirectorAsync(Guid id);
+    Task<List<Movie>> GetListWithDirectorAsync();
 }

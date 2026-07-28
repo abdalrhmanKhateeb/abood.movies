@@ -16,7 +16,6 @@
     "Price": "السعر",
     "Director": "المخرج",
 
-    "Director": "المخرج",
     "Directors": "المخرجون",
     "Name": "الاسم",
     "Nationality": "الجنسية",
@@ -66,10 +65,11 @@
     "CustomerRequired": "العميل مطلوب.",
     "MovieRequired": "الفيلم مطلوب.",
     "PriceMustBePositive": "يجب أن يكون السعر أكبر من صفر.",
-    "DueDateCannotBePast": "لا يمكن أن يكون تاريخ الاستحقاق في الماضي.",
-    "MovieAlreadyRented": "هذا الفيلم مُعار بالفعل.",
-    "CustomerRentalLimit": "وصل العميل إلى الحد الأقصى لعدد الإعارات.",
-    "TheMovieIsAlreadyRented": "الفيلم سبق و تم حجزه",
-    "Movies:RentalAlreadyReturned": "الفلم مسبقا تم ارجاعه."
+    "Movies:MovieAlreadyRented": "هذا الفيلم مُعار بالفعل.",
+    "Movies:CustomerRentalLimitExceeded": "وصل العميل إلى الحد الأقصى لعدد الإعارات النشطة.",
+    "Movies:DueDateCannotBePast": "لا يمكن أن يكون تاريخ الاستحقاق في الماضي.",
+    "Movies:RentalAlreadyReturned": "الفلم مسبقاً تم إرجاعه.",
+    "Movies:CustomerHasActiveRentals": "لا يمكن حذف هذا العميل لوجود إعارات نشطة له.",
+    "Movies:InvalidPrice": "يجب أن يكون السعر أكبر من صفر."
   }
 }

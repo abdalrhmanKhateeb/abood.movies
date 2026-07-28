@@ -9,19 +9,21 @@ using Volo.Abp.Application.Services;
 
 namespace Abood.Movies.Rentals
 {
-    public interface IRentalAppService :
-        ICrudAppService<
-            RentalDto,
-            Guid,
-            PagedAndSortedResultRequestDto,
-            CreateUpdateRentalDto>
+    public interface IRentalAppService : IApplicationService
     {
-        Task<List<CustomerDto>> GetCustomersAsync();
+        Task<RentalDto> CreateAsync(CreateUpdateRentalDto input);
 
-        Task<List<MovieDto>> GetMoviesAsync();
+        Task<RentalDto> GetAsync(Guid id);
+
+        Task<PagedResultDto<RentalDto>> GetListAsync(
+            PagedAndSortedResultRequestDto input);
+
+        Task<RentalDto> UpdateAsync(
+            Guid id,
+            CreateUpdateRentalDto input);
 
         Task ReturnMovieAsync(Guid rentalId);
 
-        
+        Task DeleteAsync(Guid id);
     }
 }

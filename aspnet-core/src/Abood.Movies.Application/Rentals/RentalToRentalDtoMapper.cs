@@ -10,8 +10,23 @@ namespace Abood.Movies.Rentals
     public partial class RentalToRentalDtoMapper
      : MapperBase<Rental, RentalDto>
     {
+        [MapProperty(
+            nameof(Rental.Customer.FullName),
+            nameof(RentalDto.CustomerName))]
+        [MapProperty(
+            nameof(Rental.Movie.Title),
+            nameof(RentalDto.MovieTitle))]
         public override partial RentalDto Map(Rental source);
 
-        public override partial void Map(Rental source, RentalDto destination);
+
+        [MapProperty(
+            nameof(Rental.Customer.FullName),
+            nameof(RentalDto.CustomerName))]
+        [MapProperty(
+            nameof(Rental.Movie.Title),
+            nameof(RentalDto.MovieTitle))]
+        public override partial void Map(
+            Rental source,
+            RentalDto destination);
     }
 }

@@ -1,51 +1,60 @@
 ﻿using Abood.Movies.Permissions;
-using Abood.Movies.Rentals;
 using System;
 using System.Threading.Tasks;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
-namespace Abood.Movies.Customers
+namespace Abood.Movies.Customers;
+
+public class CustomerAppService :
+    CrudAppService<
+        Customer,
+        CustomerDto,
+        Guid,
+        PagedAndSortedResultRequestDto,
+        CreateUpdateCustomerDto>,
+    ICustomerAppService
 {
-    public class CustomerAppService :
-        CrudAppService<
-            Customer,
-            CustomerDto,
-            Guid,
-            PagedAndSortedResultRequestDto,
-            CreateUpdateCustomerDto>,
-        ICustomerAppService
+    public CustomerAppService(
+        IRepository<Customer, Guid> repository)
+        : base(repository)
     {
-        private readonly IRepository<Rental, Guid> _rentalRepository;
+        GetPolicyName = MoviesPermissions.Customers.Default;
+        GetListPolicyName = MoviesPermissions.Customers.Default;
+        CreatePolicyName = MoviesPermissions.Customers.Create;
+        UpdatePolicyName = MoviesPermissions.Customers.Edit;
+        DeletePolicyName = MoviesPermissions.Customers.Delete;
+    }
 
-        public CustomerAppService(
-            IRepository<Customer, Guid> repository,
-            IRepository<Rental, Guid> rentalRepository)
-            : base(repository)
-        {
-            _rentalRepository = rentalRepository;
 
-            GetPolicyName = MoviesPermissions.Customers.Default;
-            GetListPolicyName = MoviesPermissions.Customers.Default;
-            CreatePolicyName = MoviesPermissions.Customers.Create;
-            UpdatePolicyName = MoviesPermissions.Customers.Edit;
-            DeletePolicyName = MoviesPermissions.Customers.Delete;
-        }
+    public override async Task<CustomerDto> CreateAsync(CreateUpdateCustomerDto input)
+    {
+        var customer = new Customer(
+            GuidGenerator.Create(),
+            input.FullName,
+            input.Email,
+            input.PhoneNumber
+        );
 
-        public override async Task DeleteAsync(Guid id)
-        {
-            var activeRental = await _rentalRepository.FirstOrDefaultAsync(
-                x => x.CustomerId == id && !x.IsReturned);
+        await Repository.InsertAsync(customer);
 
-            if (activeRental != null)
-            {
-                throw new BusinessException(
-                    MoviesDomainErrorCodes.CustomerHasActiveRentals);
-            }
+        return ObjectMapper.Map<Customer, CustomerDto>(customer);
+    }
 
-            await base.DeleteAsync(id);
-        }
+
+    public override async Task<CustomerDto> UpdateAsync(
+        Guid id,
+        CreateUpdateCustomerDto input)
+    {
+        var customer = await Repository.GetAsync(id);
+
+        customer.SetFullName(input.FullName);
+        customer.SetEmail(input.Email);
+        customer.SetPhoneNumber(input.PhoneNumber);
+
+        await Repository.UpdateAsync(customer);
+
+        return ObjectMapper.Map<Customer, CustomerDto>(customer);
     }
 }
