@@ -2,17 +2,18 @@
 
     <div class="d-flex justify-content-between mb-3">
 
-        <h2>Movies</h2>
+        <h2>{{ 'Movies' | abpLocalization }}</h2>
 
         <button
             class="btn btn-primary"
             (click)="openCreateModal()">
 
-            New Movie
+            {{ 'NewMovie' | abpLocalization }}
 
         </button>
 
     </div>
+
 
     <table class="table table-bordered table-hover">
 
@@ -20,44 +21,62 @@
 
             <tr>
 
-                <th>Title</th>
-                <th>Genre</th>
-                <th>Duration</th>
-                <th>Price</th>
-                <th>Director</th>
-                <th width="180">Actions</th>
+                <th>{{ 'MovieTitle' | abpLocalization }}</th>
+
+                <th>{{ 'Genre' | abpLocalization }}</th>
+
+                <th>{{ 'Duration' | abpLocalization }}</th>
+
+                <th>{{ 'Price' | abpLocalization }}</th>
+
+                <th>{{ 'Director' | abpLocalization }}</th>
+
+                <th width="180">
+                    {{ 'Actions' | abpLocalization }}
+                </th>
 
             </tr>
 
         </thead>
 
+
         <tbody>
 
             <tr *ngFor="let movie of movies">
 
-                <td>{{movie.title}}</td>
-                <td>{{movie.genre}}</td>
-                <td>{{movie.duration}} min</td>
-                <td>{{movie.price}}</td>
-                <td>{{movie.directorName}}</td>
+                <td>{{ movie.title }}</td>
+
+                <td>{{ movie.genre }}</td>
 
                 <td>
+                    {{ movie.time | date:'shortDate' }}
+                </td>
+
+                <td>{{ movie.price }}</td>
+
+                <td>{{ movie.directorName }}</td>
+
+
+                <td>
+
 
                     <button
                         class="btn btn-warning btn-sm me-2"
                         (click)="editMovie(movie)">
 
-                        Edit
+                        {{ 'Edit' | abpLocalization }}
 
                     </button>
+
 
                     <button
                         class="btn btn-danger btn-sm"
                         (click)="deleteMovie(movie.id)">
 
-                        Delete
+                        {{ 'Delete' | abpLocalization }}
 
                     </button>
+
 
                 </td>
 
@@ -69,127 +88,228 @@
 
 </div>
 
+
+
+
 <div
 class="modal fade show"
 [style.display]="isModalOpen ? 'block':'none'"
 *ngIf="isModalOpen">
 
+
 <div class="modal-dialog">
 
 <div class="modal-content">
 
+
+
 <div class="modal-header">
+
 
 <h5>
 
-{{selectedMovie ? 'Edit Movie' : 'New Movie'}}
+{{
+    selectedMovie
+    ? ('EditMovie' | abpLocalization)
+    : ('NewMovie' | abpLocalization)
+}}
 
 </h5>
+
 
 <button
 class="btn-close"
 (click)="isModalOpen=false">
+
 </button>
+
 
 </div>
 
+
+
+
+
 <div class="modal-body">
+
 
 <form [formGroup]="form">
 
+
+
 <div class="mb-3">
 
-<label>Title</label>
+
+<label>
+    {{ 'MovieTitle' | abpLocalization }}
+</label>
+
 
 <input
 class="form-control"
 formControlName="title">
 
+
 </div>
+
+
+
+
 
 <div class="mb-3">
 
-<label>Genre</label>
+
+<label>
+    {{ 'Genre' | abpLocalization }}
+</label>
+
 
 <select
 class="form-select"
 formControlName="genre">
 
-<option *ngFor="let genre of genres">
 
-{{genre}}
+<option
+*ngFor="let genre of genres">
+
+
+{{ genre }}
+
 
 </option>
 
+
 </select>
+
 
 </div>
 
+
+
+
+
+
 <div class="mb-3">
 
-<label>Duration (minutes)</label>
+
+<label>
+    {{ 'Duration' | abpLocalization }}
+</label>
+
 
 <input
 type="number"
 class="form-control"
 formControlName="duration">
 
+
 </div>
+
+
+
+
+
+
 
 <div class="mb-3">
 
-<label>Price</label>
+
+<label>
+    {{ 'Price' | abpLocalization }}
+</label>
+
 
 <input
 type="number"
 class="form-control"
 formControlName="price">
 
+
 </div>
+
+
+
+
+
+
 
 <div class="mb-3">
 
-<label>Director</label>
+
+<label>
+    {{ 'Director' | abpLocalization }}
+</label>
+
 
 <select
 class="form-select"
 formControlName="directorId">
 
+
 <option
 *ngFor="let director of directors"
 [value]="director.id">
 
-{{director.name}}
+
+{{ director.name }}
+
 
 </option>
 
+
 </select>
 
+
 </div>
+
+
+
 
 </form>
 
+
 </div>
 
+
+
+
+
+
+
 <div class="modal-footer">
+
 
 <button
 class="btn btn-secondary"
 (click)="isModalOpen=false">
 
-Cancel
+
+{{ 'Cancel' | abpLocalization }}
+
 
 </button>
+
+
+
+
 
 <button
 class="btn btn-primary"
 (click)="save()">
 
-Save
+
+
+{{ 'Save' | abpLocalization }}
+
+
 
 </button>
 
+
+
 </div>
+
+
 
 </div>
 

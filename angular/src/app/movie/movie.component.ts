@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { LocalizationService } from '@abp/ng.core';
 import {
   FormBuilder,
   FormGroup,
@@ -35,6 +36,7 @@ export class MovieComponent implements OnInit {
   private list = inject(ListService);
  private movieService = inject(MovieService);
 private directorService = inject(DirectorService);
+private localizationService = inject(LocalizationService);
 
   movies: MovieDto[] = [];
 
@@ -147,7 +149,11 @@ private directorService = inject(DirectorService);
       return;
     }
 
-    if (confirm('Delete movie?')) {
+    if (
+  confirm(
+    this.localizationService.instant('DeleteMovieConfirmation')
+  )
+) {
 
       this.movieService
         .delete(id)

@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 
 import {
+  LocalizationService,
   ListService,
   PagedAndSortedResultRequestDto,
   PagedResultDto,
@@ -32,6 +33,7 @@ export class CustomerComponent implements OnInit {
   private fb = inject(FormBuilder);
   private list = inject(ListService);
   private customerService = inject(CustomerService);
+  private localizationService = inject(LocalizationService);
 
   customers: CustomerDto[] = [];
 
@@ -135,7 +137,11 @@ export class CustomerComponent implements OnInit {
       return;
     }
 
-    if (confirm('Delete customer?')) {
+    if (
+  confirm(
+    this.localizationService.instant('DeleteCustomerConfirmation')
+  )
+) { 
 
       this.customerService
         .delete(id)

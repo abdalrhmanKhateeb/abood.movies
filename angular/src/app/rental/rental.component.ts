@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 
 import {
+   LocalizationService,
   ListService,
   PagedAndSortedResultRequestDto,
   PagedResultDto,
@@ -37,6 +38,7 @@ export class RentalComponent implements OnInit {
   private rentalService = inject(RentalService);
 private customerService = inject(CustomerService);
 private movieService = inject(MovieService);
+private localizationService = inject(LocalizationService);
 
   rentals: RentalDto[] = [];
 
@@ -165,7 +167,11 @@ loadMovies() {
       return;
     }
 
-    if (confirm('Delete rental?')) {
+    if (
+  confirm(
+    this.localizationService.instant('DeleteRentalConfirmation')
+  )
+) {
 
       this.rentalService
         .delete(id)
