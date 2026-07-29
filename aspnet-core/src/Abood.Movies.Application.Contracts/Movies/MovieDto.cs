@@ -14,7 +14,7 @@ namespace Abood.Movies.Movies
 
         public DateTime Time { get; set; }
 
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         public Guid DirectorId { get; set; }
 

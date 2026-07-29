@@ -19,8 +19,8 @@ import {
   CreateUpdateRentalDto,
 } from '../proxy/rentals';
 
-import { CustomerDto } from '../proxy/customers';
-import { MovieDto } from '../proxy/movies';
+import { CustomerDto, CustomerService } from '../proxy/customers';
+import { MovieDto, MovieService } from '../proxy/movies';
 
 @Component({
   selector: 'app-rental',
@@ -35,6 +35,8 @@ export class RentalComponent implements OnInit {
   private fb = inject(FormBuilder);
   private list = inject(ListService);
   private rentalService = inject(RentalService);
+private customerService = inject(CustomerService);
+private movieService = inject(MovieService);
 
   rentals: RentalDto[] = [];
 
@@ -73,28 +75,36 @@ export class RentalComponent implements OnInit {
 
   loadCustomers() {
 
-    this.rentalService
-      .getCustomers()
-      .subscribe(result => {
 
-        this.customers = result;
+  this.customerService
+    .getList({
+      skipCount: 0,
+      maxResultCount: 1000,
+      sorting: ''
+    })
+    .subscribe(result => {
 
-      });
+      this.customers = result.items ?? [];
 
-  }
+    });
 
-  loadMovies() {
+}
 
-    this.rentalService
-      .getMovies()
-      .subscribe(result => {
+loadMovies() {
 
-        this.movies = result;
+  this.movieService
+    .getList({
+      skipCount: 0,
+      maxResultCount: 1000,
+      sorting: ''
+    })
+    .subscribe(result => {
 
-      });
+      this.movies = result.items ?? [];
 
-  }
+    });
 
+}
   openCreateModal() {
 
     this.selectedRental = null;

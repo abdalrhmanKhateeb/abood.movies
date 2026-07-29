@@ -130,5 +130,4 @@ public class RentalAppService :
         await _rentalRepository.DeleteAsync(id);
     }
 
-
 }

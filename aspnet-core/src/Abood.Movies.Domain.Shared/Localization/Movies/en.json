@@ -70,7 +70,29 @@
     "Movies:DueDateCannotBePast": "Due date cannot be in the past.",
     "Movies:RentalAlreadyReturned": "This movie has already been returned.",
     "Movies:CustomerHasActiveRentals": "This customer has active rentals and cannot be deleted.",
-    "Movies:InvalidPrice": "Price must be greater than zero."
+    "Movies:InvalidPrice": "Price must be greater than zero.",
+    "Movies:MovieHasActiveRentals": "Cannot delete this movie because it has active rentals.",
+    "Duration": "Duration",
+    "DurationMinutes": "Duration (minutes)",
+    "Active": "Active",
+    "EditMovie": "Edit Movie",
+    "EditDirector": "Edit Director",
+    "EditCustomer": "Edit Customer",
+    "EditRental": "Edit Rental",
+
+    "DeleteConfirmation": "Are you sure you want to delete this item?",
+
+    "CustomerName": "Customer",
+    "MovieName": "Movie",
+
+    "CustomerCreatedSuccessfully": "Customer created successfully.",
+    "DirectorCreatedSuccessfully": "Director created successfully.",
+    "RentalCreatedSuccessfully": "Rental created successfully.",
+    "DeleteMovieConfirmation": "Delete movie?",
+    "DeleteDirectorConfirmation": "Delete this director?",
+    "DeleteRentalConfirmation": "Delete rental?"
+
+
 
   }
 }

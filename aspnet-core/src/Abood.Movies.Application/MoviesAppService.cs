@@ -6,19 +6,26 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
+using Abood.Movies.Rentals;
+using Volo.Abp;
+using Volo.Abp.Domain.Repositories;
 
 namespace Abood.Movies.Movies;
 
+[Authorize]
 public class MovieAppService :
     ApplicationService,
     IMovieAppService
 {
     private readonly IMovieRepository _movieRepository;
+    private readonly IRepository<Rental, Guid> _rentalRepository;
 
     public MovieAppService(
-        IMovieRepository movieRepository)
+      IMovieRepository movieRepository,
+      IRepository<Rental, Guid> rentalRepository)
     {
         _movieRepository = movieRepository;
+        _rentalRepository = rentalRepository;
     }
 
     [Authorize(MoviesPermissions.Movies.Default)]
@@ -90,6 +97,17 @@ public class MovieAppService :
     [Authorize(MoviesPermissions.Movies.Delete)]
     public async Task DeleteAsync(Guid id)
     {
+        var activeRental = await _rentalRepository.FirstOrDefaultAsync(
+            x => x.MovieId == id && !x.IsReturned
+        );
+
+        if (activeRental != null)
+        {
+            throw new BusinessException(
+                MoviesDomainErrorCodes.MovieHasActiveRentals
+            );
+        }
+
         await _movieRepository.DeleteAsync(id);
     }
 }

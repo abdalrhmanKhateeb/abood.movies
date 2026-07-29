@@ -19,7 +19,7 @@ import {
   CreateUpdateMovieDto,
 } from '../proxy/movies';
 
-import { DirectorDto } from '../proxy/directors';
+import { DirectorDto, DirectorService } from '../proxy/directors';
 
 @Component({
   selector: 'app-movie',
@@ -33,7 +33,8 @@ export class MovieComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private list = inject(ListService);
-  private movieService = inject(MovieService);
+ private movieService = inject(MovieService);
+private directorService = inject(DirectorService);
 
   movies: MovieDto[] = [];
 
@@ -66,11 +67,17 @@ export class MovieComponent implements OnInit {
     this.loadDirectors();
   }
 
-  loadDirectors() {
-    this.movieService.getDirectors().subscribe(result => {
-      this.directors = result;
+ loadDirectors() {
+  this.directorService
+    .getList({
+      skipCount: 0,
+      maxResultCount: 1000,
+      sorting: ''
+    })
+    .subscribe(result => {
+      this.directors = result.items ?? [];
     });
-  }
+}
 
   openCreateModal() {
     this.selectedMovie = null;
