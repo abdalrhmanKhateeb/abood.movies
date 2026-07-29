@@ -1,13 +1,11 @@
-﻿using Abood.Movies.Directors;
-using Abood.Movies.Permissions;
-using JetBrains.Annotations;
+﻿using Abood.Movies.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
-using Volo.Abp.Domain.Repositories;
 
 namespace Abood.Movies.Movies;
 
@@ -16,18 +14,14 @@ public class MovieAppService :
     IMovieAppService
 {
     private readonly IMovieRepository _movieRepository;
-    private readonly IRepository<Director, Guid> _directorRepository;
-
 
     public MovieAppService(
-        IMovieRepository movieRepository,
-        IRepository<Director, Guid> directorRepository)
+        IMovieRepository movieRepository)
     {
         _movieRepository = movieRepository;
-        _directorRepository = directorRepository;
     }
 
-
+    [Authorize(MoviesPermissions.Movies.Default)]
     public async Task<MovieDto> GetAsync(Guid id)
     {
         var movie = await _movieRepository.GetWithDirectorAsync(id);
@@ -40,9 +34,9 @@ public class MovieAppService :
         return ObjectMapper.Map<Movie, MovieDto>(movie);
     }
 
-
+    [Authorize(MoviesPermissions.Movies.Default)]
     public async Task<PagedResultDto<MovieDto>> GetListAsync(
-     PagedAndSortedResultRequestDto input)
+        PagedAndSortedResultRequestDto input)
     {
         var movies = await _movieRepository.GetListWithDirectorAsync();
 
@@ -54,7 +48,7 @@ public class MovieAppService :
         );
     }
 
-
+    [Authorize(MoviesPermissions.Movies.Create)]
     public async Task<MovieDto> CreateAsync(CreateUpdateMovieDto input)
     {
         var movie = new Movie(
@@ -68,10 +62,12 @@ public class MovieAppService :
 
         await _movieRepository.InsertAsync(movie);
 
-        return ObjectMapper.Map<Movie, MovieDto>(movie);
+        var createdMovie = await _movieRepository.GetWithDirectorAsync(movie.Id);
+
+        return ObjectMapper.Map<Movie, MovieDto>(createdMovie!);
     }
 
-
+    [Authorize(MoviesPermissions.Movies.Edit)]
     public async Task<MovieDto> UpdateAsync(
         Guid id,
         CreateUpdateMovieDto input)
@@ -86,21 +82,14 @@ public class MovieAppService :
 
         await _movieRepository.UpdateAsync(movie);
 
-        return ObjectMapper.Map<Movie, MovieDto>(movie);
+        var updatedMovie = await _movieRepository.GetWithDirectorAsync(id);
+
+        return ObjectMapper.Map<Movie, MovieDto>(updatedMovie!);
     }
 
-
+    [Authorize(MoviesPermissions.Movies.Delete)]
     public async Task DeleteAsync(Guid id)
     {
         await _movieRepository.DeleteAsync(id);
     }
-
-
-    public async Task<List<DirectorDto>> GetDirectorsAsync()
-    {
-        var directors = await _directorRepository.GetListAsync();
-
-        return ObjectMapper.Map<List<Director>, List<DirectorDto>>(directors);
-    }
-
 }
