@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { LocalizationPipe } from '@abp/ng.core';
 import {
   FormBuilder,
   FormGroup,
@@ -26,7 +27,11 @@ import { MovieDto, MovieService } from '../proxy/movies';
 @Component({
   selector: 'app-rental',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+ imports: [
+  CommonModule,
+  ReactiveFormsModule,
+  LocalizationPipe,
+],
   providers: [ListService],
   templateUrl: './rental.component.html',
   styleUrl: './rental.component.scss',
@@ -130,7 +135,7 @@ loadMovies() {
       movieId: this.form.value.movieId,
 
       dueDate: this.form.value.dueDate,
-
+      
     };
 
     this.rentalService
@@ -138,7 +143,7 @@ loadMovies() {
       .subscribe(() => {
 
         this.list.get();
-
+        
         this.isModalOpen = false;
 
       });
@@ -182,7 +187,6 @@ loadMovies() {
         });
 
     }
-
   }
 
 }

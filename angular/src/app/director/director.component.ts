@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { LocalizationPipe } from '@abp/ng.core';
 
 import {
   FormBuilder,
@@ -25,7 +26,11 @@ import {
 @Component({
   selector: 'app-director',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+ imports: [
+  CommonModule,
+  ReactiveFormsModule,
+  LocalizationPipe,
+],
   providers: [ListService],
   templateUrl: './director.component.html',
   styleUrl: './director.component.scss',

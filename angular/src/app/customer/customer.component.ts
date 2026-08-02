@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { LocalizationPipe } from '@abp/ng.core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
+  
 } from '@angular/forms';
 
 import {
@@ -23,7 +25,11 @@ import {
 @Component({
   selector: 'app-customer',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+  CommonModule,
+  ReactiveFormsModule,
+  LocalizationPipe,
+],
   providers: [ListService],
   templateUrl: './customer.component.html',
   styleUrl: './customer.component.scss',

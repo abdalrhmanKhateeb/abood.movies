@@ -25,7 +25,7 @@
 
                 <th>{{ 'Genre' | abpLocalization }}</th>
 
-                <th>{{ 'Duration' | abpLocalization }}</th>
+                <th>{{ 'Time' | abpLocalization }}</th>
 
                 <th>{{ 'Price' | abpLocalization }}</th>
 
@@ -170,10 +170,10 @@ formControlName="genre">
 
 
 <option
-*ngFor="let genre of genres">
+*ngFor="let genre of movieTypeOptions"
+[value]="genre.value">
 
-
-{{ genre }}
+{{ genre.key }}
 
 
 </option>
@@ -193,15 +193,20 @@ formControlName="genre">
 
 
 <label>
-    {{ 'Duration' | abpLocalization }}
+    {{ 'Time' | abpLocalization }}
 </label>
 
 
-<input
-type="number"
-class="form-control"
-formControlName="duration">
+input
+  type="number"
+  class="form-control"
+/>
 
+<input 
+  formControlName="time" 
+  type="datetime-local"
+  class="form-control"
+/>
 
 </div>
 

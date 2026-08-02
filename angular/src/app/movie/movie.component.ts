@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { LocalizationService } from '@abp/ng.core';
+import { LocalizationPipe } from '@abp/ng.core';
 import {
   FormBuilder,
   FormGroup,
@@ -18,6 +19,7 @@ import {
   MovieService,
   MovieDto,
   CreateUpdateMovieDto,
+   MovieType,
 } from '../proxy/movies';
 
 import { DirectorDto, DirectorService } from '../proxy/directors';
@@ -25,7 +27,11 @@ import { DirectorDto, DirectorService } from '../proxy/directors';
 @Component({
   selector: 'app-movie',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+  CommonModule,
+  ReactiveFormsModule,
+  LocalizationPipe,
+],
   providers: [ListService],
   templateUrl: './movie.component.html',
   styleUrl: './movie.component.scss',
@@ -41,6 +47,25 @@ private localizationService = inject(LocalizationService);
   movies: MovieDto[] = [];
 
   directors: DirectorDto[] = [];
+
+  movieTypeOptions = [
+  {
+    key: 'Horror',
+    value: MovieType.horror,
+  },
+  {
+    key: 'Action',
+    value: MovieType.action,
+  },
+  {
+    key: 'Romance',
+    value: MovieType.romance,
+  },
+  {
+    key: 'Adventure',
+    value: MovieType.adventure,
+  },
+];
 
   form: FormGroup = this.fb.group({
     title: ['', Validators.required],
