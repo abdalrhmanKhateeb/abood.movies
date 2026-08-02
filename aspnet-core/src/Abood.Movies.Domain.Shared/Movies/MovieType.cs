@@ -6,9 +6,9 @@ namespace Abood.Movies.Movies
 {
     public enum MovieType
     {
-        horror,
-        action,
-        romance,
-        adventure,
+        Horror,
+        Action,
+        Romance,
+        Adventure,
     }
 }

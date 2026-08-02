@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { LocalizationPipe } from '@abp/ng.core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,6 +9,7 @@ import {
 } from '@angular/forms';
 
 import {
+   LocalizationService,
   ListService,
   PagedAndSortedResultRequestDto,
   PagedResultDto,
@@ -19,13 +21,17 @@ import {
   CreateUpdateRentalDto,
 } from '../proxy/rentals';
 
-import { CustomerDto } from '../proxy/customers';
-import { MovieDto } from '../proxy/movies';
+import { CustomerDto, CustomerService } from '../proxy/customers';
+import { MovieDto, MovieService } from '../proxy/movies';
 
 @Component({
   selector: 'app-rental',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+ imports: [
+  CommonModule,
+  ReactiveFormsModule,
+  LocalizationPipe,
+],
   providers: [ListService],
   templateUrl: './rental.component.html',
   styleUrl: './rental.component.scss',
@@ -35,6 +41,9 @@ export class RentalComponent implements OnInit {
   private fb = inject(FormBuilder);
   private list = inject(ListService);
   private rentalService = inject(RentalService);
+private customerService = inject(CustomerService);
+private movieService = inject(MovieService);
+private localizationService = inject(LocalizationService);
 
   rentals: RentalDto[] = [];
 
@@ -73,28 +82,36 @@ export class RentalComponent implements OnInit {
 
   loadCustomers() {
 
-    this.rentalService
-      .getCustomers()
-      .subscribe(result => {
 
-        this.customers = result;
+  this.customerService
+    .getList({
+      skipCount: 0,
+      maxResultCount: 1000,
+      sorting: ''
+    })
+    .subscribe(result => {
 
-      });
+      this.customers = result.items ?? [];
 
-  }
+    });
 
-  loadMovies() {
+}
 
-    this.rentalService
-      .getMovies()
-      .subscribe(result => {
+loadMovies() {
 
-        this.movies = result;
+  this.movieService
+    .getList({
+      skipCount: 0,
+      maxResultCount: 1000,
+      sorting: ''
+    })
+    .subscribe(result => {
 
-      });
+      this.movies = result.items ?? [];
 
-  }
+    });
 
+}
   openCreateModal() {
 
     this.selectedRental = null;
@@ -118,7 +135,7 @@ export class RentalComponent implements OnInit {
       movieId: this.form.value.movieId,
 
       dueDate: this.form.value.dueDate,
-
+      
     };
 
     this.rentalService
@@ -126,7 +143,7 @@ export class RentalComponent implements OnInit {
       .subscribe(() => {
 
         this.list.get();
-
+        
         this.isModalOpen = false;
 
       });
@@ -155,7 +172,11 @@ export class RentalComponent implements OnInit {
       return;
     }
 
-    if (confirm('Delete rental?')) {
+    if (
+  confirm(
+    this.localizationService.instant('DeleteRentalConfirmation')
+  )
+) {
 
       this.rentalService
         .delete(id)
@@ -166,7 +187,6 @@ export class RentalComponent implements OnInit {
         });
 
     }
-
   }
 
 }

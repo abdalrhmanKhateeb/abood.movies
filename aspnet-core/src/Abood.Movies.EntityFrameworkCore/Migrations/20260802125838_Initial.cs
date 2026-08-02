@@ -452,13 +452,13 @@ namespace Abood.Movies.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "AppCustomers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FullName = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    FullName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -468,15 +468,15 @@ namespace Abood.Movies.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.PrimaryKey("PK_AppCustomers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Directors",
+                name: "AppDirectors",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     Nationality = table.Column<string>(type: "text", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
@@ -487,7 +487,7 @@ namespace Abood.Movies.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Directors", x => x.Id);
+                    table.PrimaryKey("PK_AppDirectors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -827,14 +827,14 @@ namespace Abood.Movies.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Movies",
+                name: "AppMovies",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false),
+                    Title = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     Genre = table.Column<int>(type: "integer", nullable: false),
                     Time = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
                     DirectorId = table.Column<Guid>(type: "uuid", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
@@ -845,11 +845,11 @@ namespace Abood.Movies.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Movies", x => x.Id);
+                    table.PrimaryKey("PK_AppMovies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Movies_Directors_DirectorId",
+                        name: "FK_AppMovies_AppDirectors_DirectorId",
                         column: x => x.DirectorId,
-                        principalTable: "Directors",
+                        principalTable: "AppDirectors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -903,7 +903,7 @@ namespace Abood.Movies.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rentals",
+                name: "AppRentals",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -922,19 +922,19 @@ namespace Abood.Movies.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rentals", x => x.Id);
+                    table.PrimaryKey("PK_AppRentals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rentals_Customers_CustomerId",
+                        name: "FK_AppRentals_AppCustomers_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customers",
+                        principalTable: "AppCustomers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Rentals_Movies_MovieId",
+                        name: "FK_AppRentals_AppMovies_MovieId",
                         column: x => x.MovieId,
-                        principalTable: "Movies",
+                        principalTable: "AppMovies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1197,9 +1197,19 @@ namespace Abood.Movies.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Movies_DirectorId",
-                table: "Movies",
+                name: "IX_AppMovies_DirectorId",
+                table: "AppMovies",
                 column: "DirectorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppRentals_CustomerId",
+                table: "AppRentals",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppRentals_MovieId",
+                table: "AppRentals",
+                column: "MovieId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
@@ -1230,16 +1240,6 @@ namespace Abood.Movies.Migrations
                 name: "IX_OpenIddictTokens_ReferenceId",
                 table: "OpenIddictTokens",
                 column: "ReferenceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rentals_CustomerId",
-                table: "Rentals",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rentals_MovieId",
-                table: "Rentals",
-                column: "MovieId");
         }
 
         /// <inheritdoc />
@@ -1330,13 +1330,13 @@ namespace Abood.Movies.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
+                name: "AppRentals");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictTokens");
-
-            migrationBuilder.DropTable(
-                name: "Rentals");
 
             migrationBuilder.DropTable(
                 name: "AbpEntityChanges");
@@ -1354,22 +1354,22 @@ namespace Abood.Movies.Migrations
                 name: "AbpUsers");
 
             migrationBuilder.DropTable(
+                name: "AppCustomers");
+
+            migrationBuilder.DropTable(
+                name: "AppMovies");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
-
-            migrationBuilder.DropTable(
-                name: "Movies");
 
             migrationBuilder.DropTable(
                 name: "AbpAuditLogs");
 
             migrationBuilder.DropTable(
-                name: "OpenIddictApplications");
+                name: "AppDirectors");
 
             migrationBuilder.DropTable(
-                name: "Directors");
+                name: "OpenIddictApplications");
         }
     }
 }

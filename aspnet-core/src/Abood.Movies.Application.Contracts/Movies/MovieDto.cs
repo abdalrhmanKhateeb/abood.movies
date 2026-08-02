@@ -7,13 +7,14 @@ namespace Abood.Movies.Movies
 {
     public class MovieDto : AuditedEntityDto<Guid>
     {
+        //
         public string Title { get; set; }
 
         public MovieType Genre { get; set; }
 
         public DateTime Time { get; set; }
 
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         public Guid DirectorId { get; set; }
 

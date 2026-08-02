@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { PagedAndSortedResultRequestDto } from '@abp/ng.core';
+import { LocalizationPipe } from '@abp/ng.core';
+
 import {
   FormBuilder,
   FormGroup,
@@ -8,7 +9,13 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { ListService, PagedResultDto } from '@abp/ng.core';
+
+import {
+  LocalizationService,
+  ListService,
+  PagedAndSortedResultRequestDto,
+  PagedResultDto,
+} from '@abp/ng.core';
 
 import {
   DirectorDto,
@@ -19,7 +26,11 @@ import {
 @Component({
   selector: 'app-director',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+ imports: [
+  CommonModule,
+  ReactiveFormsModule,
+  LocalizationPipe,
+],
   providers: [ListService],
   templateUrl: './director.component.html',
   styleUrl: './director.component.scss',
@@ -28,6 +39,7 @@ export class DirectorComponent implements OnInit {
   private fb = inject(FormBuilder);
   private list = inject(ListService);
   private directorService = inject(DirectorService);
+  private localizationService = inject(LocalizationService);
 
   directors: DirectorDto[] = [];
 
@@ -93,7 +105,11 @@ this.directors = response.items ?? [];    });
   deleteDirector(id?: string) {
     if (!id) return;
 
-    if (confirm('Delete this director?')) {
+    if (
+  confirm(
+    this.localizationService.instant('DeleteDirectorConfirmation')
+  )
+) {
       this.directorService.delete(id).subscribe(() => {
         this.list.get();
       });

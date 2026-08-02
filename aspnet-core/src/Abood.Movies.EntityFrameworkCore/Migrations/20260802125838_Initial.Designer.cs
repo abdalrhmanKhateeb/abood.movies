@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Abood.Movies.Migrations
 {
     [DbContext(typeof(MoviesDbContext))]
-    [Migration("20260723082605_Initial")]
+    [Migration("20260802125838_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -49,7 +49,8 @@ namespace Abood.Movies.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("ExtraProperties")
                         .IsRequired()
@@ -58,7 +59,8 @@ namespace Abood.Movies.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("timestamp without time zone")
@@ -70,11 +72,12 @@ namespace Abood.Movies.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("AppCustomers", (string)null);
                 });
 
             modelBuilder.Entity("Abood.Movies.Directors.Director", b =>
@@ -112,7 +115,8 @@ namespace Abood.Movies.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.Property<string>("Nationality")
                         .IsRequired()
@@ -120,7 +124,7 @@ namespace Abood.Movies.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Directors");
+                    b.ToTable("AppDirectors", (string)null);
                 });
 
             modelBuilder.Entity("Abood.Movies.Movies.Movie", b =>
@@ -162,21 +166,22 @@ namespace Abood.Movies.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("LastModifierId");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DirectorId");
 
-                    b.ToTable("Movies");
+                    b.ToTable("AppMovies", (string)null);
                 });
 
             modelBuilder.Entity("Abood.Movies.Rentals.Rental", b =>
@@ -236,7 +241,7 @@ namespace Abood.Movies.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("Rentals");
+                    b.ToTable("AppRentals", (string)null);
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -2134,13 +2139,13 @@ namespace Abood.Movies.Migrations
                     b.HasOne("Abood.Movies.Customers.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Abood.Movies.Movies.Movie", "Movie")
                         .WithMany()
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Customer");

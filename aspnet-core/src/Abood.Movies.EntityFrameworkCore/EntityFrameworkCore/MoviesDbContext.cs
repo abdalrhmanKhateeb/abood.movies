@@ -2,7 +2,6 @@
 using Abood.Movies.Directors;
 using Abood.Movies.Movies;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -147,16 +146,17 @@ public class MoviesDbContext :
                 MoviesConsts.DbSchema);
 
             b.ConfigureByConvention();
-
             b.HasOne(x => x.Customer)
                 .WithMany()
                 .HasForeignKey(x => x.CustomerId)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
             b.HasOne(x => x.Movie)
                 .WithMany()
                 .HasForeignKey(x => x.MovieId)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         });
     }
 }

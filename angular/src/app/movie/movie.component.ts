@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { LocalizationService } from '@abp/ng.core';
+import { LocalizationPipe } from '@abp/ng.core';
 import {
   FormBuilder,
   FormGroup,
@@ -17,14 +19,19 @@ import {
   MovieService,
   MovieDto,
   CreateUpdateMovieDto,
+   MovieType,
 } from '../proxy/movies';
 
-import { DirectorDto } from '../proxy/directors';
+import { DirectorDto, DirectorService } from '../proxy/directors';
 
 @Component({
   selector: 'app-movie',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+  CommonModule,
+  ReactiveFormsModule,
+  LocalizationPipe,
+],
   providers: [ListService],
   templateUrl: './movie.component.html',
   styleUrl: './movie.component.scss',
@@ -33,11 +40,32 @@ export class MovieComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private list = inject(ListService);
-  private movieService = inject(MovieService);
+ private movieService = inject(MovieService);
+private directorService = inject(DirectorService);
+private localizationService = inject(LocalizationService);
 
   movies: MovieDto[] = [];
 
   directors: DirectorDto[] = [];
+
+  movieTypeOptions = [
+  {
+    key: 'Horror',
+    value: MovieType.horror,
+  },
+  {
+    key: 'Action',
+    value: MovieType.action,
+  },
+  {
+    key: 'Romance',
+    value: MovieType.romance,
+  },
+  {
+    key: 'Adventure',
+    value: MovieType.adventure,
+  },
+];
 
   form: FormGroup = this.fb.group({
     title: ['', Validators.required],
@@ -66,11 +94,17 @@ export class MovieComponent implements OnInit {
     this.loadDirectors();
   }
 
-  loadDirectors() {
-    this.movieService.getDirectors().subscribe(result => {
-      this.directors = result;
+ loadDirectors() {
+  this.directorService
+    .getList({
+      skipCount: 0,
+      maxResultCount: 1000,
+      sorting: ''
+    })
+    .subscribe(result => {
+      this.directors = result.items ?? [];
     });
-  }
+}
 
   openCreateModal() {
     this.selectedMovie = null;
@@ -140,7 +174,11 @@ export class MovieComponent implements OnInit {
       return;
     }
 
-    if (confirm('Delete movie?')) {
+    if (
+  confirm(
+    this.localizationService.instant('DeleteMovieConfirmation')
+  )
+) {
 
       this.movieService
         .delete(id)

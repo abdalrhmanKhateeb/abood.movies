@@ -16,7 +16,6 @@
     "Price": "السعر",
     "Director": "المخرج",
 
-    "Director": "المخرج",
     "Directors": "المخرجون",
     "Name": "الاسم",
     "Nationality": "الجنسية",
@@ -66,10 +65,32 @@
     "CustomerRequired": "العميل مطلوب.",
     "MovieRequired": "الفيلم مطلوب.",
     "PriceMustBePositive": "يجب أن يكون السعر أكبر من صفر.",
-    "DueDateCannotBePast": "لا يمكن أن يكون تاريخ الاستحقاق في الماضي.",
-    "MovieAlreadyRented": "هذا الفيلم مُعار بالفعل.",
-    "CustomerRentalLimit": "وصل العميل إلى الحد الأقصى لعدد الإعارات.",
-    "TheMovieIsAlreadyRented": "الفيلم سبق و تم حجزه",
-    "Movies:RentalAlreadyReturned": "الفلم مسبقا تم ارجاعه."
+    "Movies:MovieAlreadyRented": "هذا الفيلم مُعار بالفعل.",
+    "Movies:CustomerRentalLimitExceeded": "وصل العميل إلى الحد الأقصى لعدد الإعارات النشطة.",
+    "Movies:DueDateCannotBePast": "لا يمكن أن يكون تاريخ الاستحقاق في الماضي.",
+    "Movies:RentalAlreadyReturned": "الفلم مسبقاً تم إرجاعه.",
+    "Movies:CustomerHasActiveRentals": "لا يمكن حذف هذا العميل لوجود إعارات نشطة له.",
+    "Movies:InvalidPrice": "يجب أن يكون السعر أكبر من صفر.",
+    "Movies:MovieHasActiveRentals": "لا يمكن حذف هذا الفيلم لوجود إعارات نشطة له.",
+    "Duration": "المدة",
+    "DurationMinutes": "المدة (بالدقائق)",
+    "Active": "نشط",
+
+    "EditMovie": "تعديل الفيلم",
+    "EditDirector": "تعديل المخرج",
+    "EditCustomer": "تعديل العميل",
+    "EditRental": "تعديل الإعارة",
+
+    "DeleteConfirmation": "هل أنت متأكد من حذف هذا العنصر؟",
+
+    "CustomerName": "العميل",
+    "MovieName": "الفيلم",
+
+    "CustomerCreatedSuccessfully": "تم إنشاء العميل بنجاح.",
+    "DirectorCreatedSuccessfully": "تم إنشاء المخرج بنجاح.",
+    "RentalCreatedSuccessfully": "تم إنشاء الإعارة بنجاح.",
+    "DeleteMovieConfirmation": "هل أنت متأكد من حذف الفيلم؟",
+    "DeleteDirectorConfirmation": "هل أنت متأكد من حذف المخرج؟",
+    "DeleteRentalConfirmation": "هل أنت متأكد من حذف الإعارة؟"
   }
 }

@@ -12,12 +12,12 @@ namespace Abood.Movies.Movies
         public string Title { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [EnumDataType(typeof(MovieType))]
         public MovieType Genre { get; set; }
 
         public DateTime Time { get; set; }
 
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         [Required]
         public Guid DirectorId { get; set; }

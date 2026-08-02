@@ -27,4 +27,10 @@ public class EfCoreMovieRepository :
             .Include(x => x.Director)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
+    public async Task<List<Movie>> GetListWithDirectorAsync()
+    {
+        return await (await GetDbSetAsync())
+            .Include(x => x.Director)
+            .ToListAsync();
+    }
 }

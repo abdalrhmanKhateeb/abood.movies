@@ -31,7 +31,7 @@ namespace Abood.Movies.Rentals
             var activeCustomerRentals = await _rentalRepository.CountAsync(
                 x => x.CustomerId == customerId && !x.IsReturned);
 
-            if (activeCustomerRentals >= 2)
+            if (activeCustomerRentals >= MoviesConsts.MaxActiveRentalsPerCustomer)
             {
                 throw new BusinessException(
                     MoviesDomainErrorCodes.CustomerRentalLimitExceeded);
@@ -57,7 +57,26 @@ namespace Abood.Movies.Rentals
 
             return Task.CompletedTask;
         }
-       
-    }
 
+       
+    
+    public async Task<Rental> CreateAsync(
+    Guid customerId,
+    Guid movieId,
+    DateTime dueDate)
+        {
+            await CheckMovieAvailabilityAsync(movieId);
+            await CheckCustomerRentalLimitAsync(customerId);
+            await CheckRentalDueDateAsync(dueDate);
+
+            return new Rental(
+                GuidGenerator.Create(),
+                customerId,
+                movieId,
+                Clock.Now,
+                dueDate
+            );
+        }
+
+    }
 }

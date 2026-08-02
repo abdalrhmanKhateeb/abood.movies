@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { LocalizationPipe } from '@abp/ng.core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
+  
 } from '@angular/forms';
 
 import {
+  LocalizationService,
   ListService,
   PagedAndSortedResultRequestDto,
   PagedResultDto,
@@ -22,7 +25,11 @@ import {
 @Component({
   selector: 'app-customer',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+  CommonModule,
+  ReactiveFormsModule,
+  LocalizationPipe,
+],
   providers: [ListService],
   templateUrl: './customer.component.html',
   styleUrl: './customer.component.scss',
@@ -32,6 +39,7 @@ export class CustomerComponent implements OnInit {
   private fb = inject(FormBuilder);
   private list = inject(ListService);
   private customerService = inject(CustomerService);
+  private localizationService = inject(LocalizationService);
 
   customers: CustomerDto[] = [];
 
@@ -135,7 +143,11 @@ export class CustomerComponent implements OnInit {
       return;
     }
 
-    if (confirm('Delete customer?')) {
+    if (
+  confirm(
+    this.localizationService.instant('DeleteCustomerConfirmation')
+  )
+) { 
 
       this.customerService
         .delete(id)
